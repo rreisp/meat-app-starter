@@ -23,6 +23,7 @@ import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { OrderComponent } from './order/order.component';
+import { InputComponent } from './shared/input/input.component';
 registerLocaleData(ptBr);
 
 @NgModule({
@@ -38,7 +39,8 @@ registerLocaleData(ptBr);
     ShoppingCartComponent,
     MenuItemComponent,
     ReviewsComponent,
-    OrderComponent
+    OrderComponent,
+    InputComponent
   ],
   imports: [
     BrowserModule,
