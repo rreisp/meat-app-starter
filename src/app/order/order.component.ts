@@ -10,6 +10,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class OrderComponent implements OnInit {
 
+  // tslint:disable-next-line:no-inferrable-types
+  delivery: number = 8;
+
   paymentOptions: RadioOption[] = [
     { label: 'Dinheiro', value: 'MON' },
     { label: 'Cartão de Débito', value: 'DEB' },
@@ -19,6 +22,10 @@ export class OrderComponent implements OnInit {
   constructor(private orderService: OrderService) { }
 
   ngOnInit() {
+  }
+
+  itemsValue(): number {
+    return this.orderService.itemsValue();
   }
 
   cartItems(): CartItem[] {
