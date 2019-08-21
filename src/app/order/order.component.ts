@@ -5,13 +5,15 @@ import { OrderService } from './order.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'mt-order',
   templateUrl: './order.component.html'
 })
 export class OrderComponent implements OnInit {
+
+  constructor(private orderService: OrderService, private router: Router, private formBuilder: FormBuilder) { }
 
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -28,7 +30,18 @@ export class OrderComponent implements OnInit {
     { label: 'Cartão Refeição', value: 'REF' },
   ];
 
-  constructor(private orderService: OrderService, private router: Router, private formBuilder: FormBuilder) { }
+  static equalsTo(group: AbstractControl): { [key: string]: boolean } {
+    const email = group.get('email');
+    const emailConfirmation = group.get('emailConfirmation');
+    if (!email || !emailConfirmation) {
+      return undefined;
+    }
+
+    if (email.value !== emailConfirmation.value) {
+      return { emailsNotMatch: true };
+    }
+    return undefined;
+  }
 
   ngOnInit() {
     this.orderForm = this.formBuilder.group({
@@ -39,7 +52,7 @@ export class OrderComponent implements OnInit {
       number: this.formBuilder.control('', [Validators.required, Validators.pattern(this.numberPattern)]),
       optionalAddress: this.formBuilder.control(''),
       paymentOption: this.formBuilder.control('', [Validators.required])
-    });
+    }, { validator: OrderComponent.equalsTo });
   }
 
   itemsValue(): number {
