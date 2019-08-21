@@ -4,9 +4,6 @@
 
 <section class="content">
         <section class="invoice">
-                {{form.valid}}
-                {{form.value | json}}
-
                 <form #form="ngForm" novalidate>
                         <div class="row">
                                 <div class="col-xs-12">
@@ -60,7 +57,8 @@
                                         <p class="lead">Formas de Pagamento:</p>
 
                                         <div class="form-group">
-                                                <mt-radio [options]="paymentOptions" name="paymentOption" ngModel required>
+                                                <mt-radio [options]="paymentOptions" name="paymentOption" ngModel
+                                                        required>
                                                 </mt-radio>
                                         </div>
 
@@ -68,8 +66,8 @@
                                 <!-- /.col -->
                                 <div class="col-sm-6 col-xs-12">
                                         <p class="lead">Frete e Total:</p>
-                                        <mt-delivery-costs [delivery]="delivery"
-                                        [itemsValue]="itemsValue()"></mt-delivery-costs>
+                                        <mt-delivery-costs [delivery]="delivery" [itemsValue]="itemsValue()">
+                                        </mt-delivery-costs>
                                 </div>
                                 <!-- /.col -->
                         </div>
@@ -78,7 +76,8 @@
 
                 <div class="row">
                         <div class="col-xs-12">
-                                <button (click)="checkOrder(form.value)" class="btn btn-success pull-right" [disabled]="!form.valid || cartItems().length === 0"><i
+                                <button (click)="checkOrder(form.value)" class="btn btn-success pull-right"
+                                        [disabled]="!form.valid || cartItems().length === 0"><i
                                                 class="fa fa-credit-card"></i> Concluir Pedido
                                 </button>
                         </div>
