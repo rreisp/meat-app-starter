@@ -17,3 +17,5 @@ import 'core-js/es/reflect';
 
 import 'core-js/es/reflect';
 import 'zone.js/dist/zone';
+
+import 'web-animations-js/web-animations.min.js';
