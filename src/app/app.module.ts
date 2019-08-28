@@ -47,7 +47,8 @@ registerLocaleData(ptBr);
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     SharedModule.forRoot()
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: LOCALE_ID, useValue: 'pt' }],
+  providers: [ { provide: LOCALE_ID, useValue: 'pt' }],
+  // providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
