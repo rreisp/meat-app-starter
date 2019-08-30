@@ -14,8 +14,12 @@ import { Restaurant } from './restaurant/restaurant.model';
 export class RestaurantsService {
         constructor(private http: HttpClient) { }
 
-        restaurants(): Observable<Restaurant[]> {
-                return this.http.get<Restaurant[]>(`${MEAT_API}/restaurants`)
+        restaurants(search: string = ''): Observable<Restaurant[]> {
+                // return this.http.get<Restaurant[]>(`${MEAT_API}/restaurants`, {params: {}})
+                // .pipe(
+                //         catchError(ErrorHandler.handleError)
+                // );
+                return this.http.get<Restaurant[]>(`${MEAT_API}/restaurants`, { params: {q: search} })
                         .pipe(
                                 catchError(ErrorHandler.handleError)
                         );
