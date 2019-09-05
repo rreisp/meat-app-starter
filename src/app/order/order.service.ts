@@ -34,16 +34,14 @@ export class OrderService {
         }
 
         checkOrder(order: Order): Observable<string> {
-                console.log(JSON.stringify(order));
-                const head = new HttpHeaders();
-                head.append('Content-Type', 'application/json');
-                const options = {
-                        headers: head
-                };
+                // console.log(JSON.stringify(order));
+                // const head = new HttpHeaders();
+                // head.append('Content-Type', 'application/json');
+                // const options = {
+                //         headers: head
+                // };
                 return this.http.post<Order>(`${MEAT_API}/orders`,
-                        order,
-                        options)
-                        .pipe(
+                        order).pipe(
                                 map(response => response.id)
                         );
         }
