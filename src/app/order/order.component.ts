@@ -6,6 +6,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Order, OrderItem } from './order.model';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'mt-order',
@@ -23,6 +24,8 @@ export class OrderComponent implements OnInit {
 
   // tslint:disable-next-line:no-inferrable-types
   delivery: number = 8;
+
+  orderId: string;
 
   paymentOptions: RadioOption[] = [
     { label: 'Dinheiro', value: 'MON' },
@@ -78,11 +81,17 @@ export class OrderComponent implements OnInit {
   checkOrder(order: Order) {
     order.orderItems = this.cartItems()
       .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id));
-    this.orderService.checkOrder(order)
-      .subscribe((orderId: string) => {
-        this.router.navigate(['/order-summary']);
-        this.orderService.clear();
-      });
-    console.log(order);
+    this.orderService.checkOrder(order).pipe(
+      tap((orderId: string) => {
+        this.orderId = orderId;
+      })
+    ).subscribe((orderId: string) => {
+      this.router.navigate(['/order-summary']);
+      this.orderService.clear();
+    });
+  }
+
+  isOrderCompleted(): boolean {
+    return this.orderId !== undefined;
   }
 }

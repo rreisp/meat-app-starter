@@ -1,3 +1,4 @@
+import { LeaveOrderGuard } from './../order/leave-order.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RadioComponent } from './radio/radio.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
@@ -25,7 +26,15 @@ export class SharedModule {
         static forRoot(): ModuleWithProviders {
                 return {
                         ngModule: SharedModule,
-                        providers: [ShoppingCartService, RestaurantsService, OrderService, NotificationService, LoginService, LoggedInGuard]
+                        providers: [
+                                ShoppingCartService,
+                                RestaurantsService,
+                                OrderService,
+                                NotificationService,
+                                LoginService,
+                                LoggedInGuard,
+                                LeaveOrderGuard
+                        ]
                 };
         }
 }
