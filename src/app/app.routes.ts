@@ -1,3 +1,4 @@
+import { LoggedInGuard } from './../app/security/loggedin.guard';
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -11,10 +12,9 @@ import { LoginComponent } from './security/login/login.component';
 
 export const ROUTES: Routes = [
         { path: '', component: HomeComponent },
+        { path: 'login/:to', component: LoginComponent },
         { path: 'login', component: LoginComponent },
-        { path: 'about', loadChildren: './about/about.module#AboutModule' },
-        { path: 'restaurants', component: RestaurantsComponent },
-        { path: 'order', loadChildren: './order/order.module#OrderModule' },
+        { path: 'order', loadChildren: './order/order.module#OrderModule', canLoad: [LoggedInGuard] },
         { path: 'order-summary', component: OrderSummaryComponent },
         {
                 path: 'restaurants/:id', component: RestaurantDetailComponent,
@@ -24,5 +24,7 @@ export const ROUTES: Routes = [
                         { path: 'reviews', component: ReviewsComponent }
                 ]
         },
+        { path: 'restaurants', component: RestaurantsComponent },
+        { path: 'about', loadChildren: './about/about.module#AboutModule' },
         { path: '**', component: NotFoundComponent}
 ];
