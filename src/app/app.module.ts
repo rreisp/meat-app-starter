@@ -1,12 +1,14 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ROUTES } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
-import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+
+import { ApplicationErrorHandler } from './app.error-handler';
+import { ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -51,8 +53,10 @@ registerLocaleData(ptBr);
     RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
     SharedModule.forRoot()
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'pt' }],
-  // providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, { provide: LOCALE_ID, useValue: 'pt' }],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: ErrorHandler, useClass: ApplicationErrorHandler }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

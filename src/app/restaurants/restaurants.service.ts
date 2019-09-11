@@ -1,5 +1,5 @@
 import { MenuItem } from './../restaurant-detail/menu-item/menu-item.model';
-import { ErrorHandler } from './../app.error-handler';
+import { ApplicationErrorHandler } from './../app.error-handler';
 import { MEAT_API } from './../app.api';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -33,7 +33,7 @@ export class RestaurantsService {
         restaurantById(id: string): Observable<Restaurant> {
                 return this.http.get<Restaurant>(`${MEAT_API}/restaurants/${id}`)
                         .pipe(
-                                catchError(ErrorHandler.handleError)
+                                catchError( error => ApplicationErrorHandler)
                         );
                 // return  this.http.get(`${MEAT_API}/restaurants/${id}`)
                 // .map(response => response.json())
@@ -47,7 +47,7 @@ export class RestaurantsService {
         menuOfRestaurant(id: string): Observable<MenuItem[]> {
                 return this.http.get<MenuItem[]>(`${MEAT_API}/restaurants/${id}/menu`)
                         .pipe(
-                                catchError(ErrorHandler.handleError)
+                                catchError( error => ApplicationErrorHandler)
                         );
                 // return  this.http.get(`${MEAT_API}/restaurants/${id}/menu`)
                 // .map(response => response.json())
